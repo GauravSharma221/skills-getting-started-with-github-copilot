@@ -15,26 +15,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
-        const activityCard = document.createElement("div");
-        activityCard.className = "activity-card";
+              const activityCard = document.createElement("div");
+              activityCard.className = "activity-card";
+      
+              const spotsLeft = details.max_participants - details.participants.length;
+      
+                const participantsList = details.participants.length
+                ? `<ul>${details.participants.map(p => `<li>${p}</li>`).join("")}</ul>`
+                : "None";
 
-        const spotsLeft = details.max_participants - details.participants.length;
-
-        activityCard.innerHTML = `
-          <h4>${name}</h4>
-          <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
-        `;
-
-        activitiesList.appendChild(activityCard);
-
-        // Add option to select dropdown
-        const option = document.createElement("option");
-        option.value = name;
-        option.textContent = name;
-        activitySelect.appendChild(option);
-      });
+                activityCard.innerHTML = `
+                <h4>${name}</h4>
+                <p>${details.description}</p>
+                <p><strong>Schedule:</strong> ${details.schedule}</p>
+                <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+                <p><strong>Participants:</strong> ${participantsList}</p>
+                `;
+      
+              activitiesList.appendChild(activityCard);
+      
+              // Add option to select dropdown
+              const option = document.createElement("option");
+              option.value = name;
+              option.textContent = name;
+              activitySelect.appendChild(option);
+            });
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
       console.error("Error fetching activities:", error);

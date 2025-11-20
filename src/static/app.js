@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <button class="delete-btn" data-activity="${name}" data-email="${p}" title="Remove participant">✕</button>
                     </li>`
                   ).join("")}</ul>`
-                : "None";
+                : '<p class="participants-empty">No participants yet</p>';
 
                 activityCard.innerHTML = `
                 <h4>${name}</h4>
